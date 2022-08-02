@@ -1,14 +1,18 @@
-# Welcome to your CDK TypeScript project
+# Nordcloud WebAssembly Lambda Demo
+Kenneth Falck <kennu@nordcloud.com> 2022
 
-This is a blank project for CDK development with TypeScript.
+## Overview
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+This demo deploys a Lambda function that executes WebAssembly code.
 
-## Useful commands
+## Installation
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+To install dependencies, run:
+
+    npm install
+
+## Deployment
+
+To deploy the project using AWS CDK, run:
+
+    npm run deploy:dev
