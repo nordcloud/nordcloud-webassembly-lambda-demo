@@ -41,6 +41,17 @@ export class NordcloudWebassemblyLambdaDemoStack extends Stack {
       wasmPath: join(__dirname, '..', 'wasm', 'demo-c.wasm'),
     })
 
+    new LogGroup(this, `webassembly-demo-cpp-log`, {
+      logGroupName: `/aws/lambda/${this.stackName}-webassembly-demo-cpp`,
+      retention: RetentionDays.ONE_YEAR,
+      removalPolicy: RemovalPolicy.DESTROY,
+    })
+
+    const demoCppFunction = new WebAssemblyFunction(this, 'webassembly-demo-cpp', {
+      functionName: `${props.stackName}-webassembly-demo-cpp`,
+      wasmPath: join(__dirname, '..', 'wasm', 'demo-cpp.wasm'),
+    })
+
     new LogGroup(this, `webassembly-demo-as-log`, {
       logGroupName: `/aws/lambda/${this.stackName}-webassembly-demo-as`,
       retention: RetentionDays.ONE_YEAR,
@@ -60,6 +71,7 @@ export class NordcloudWebassemblyLambdaDemoStack extends Stack {
     })
 
     restApi.root.addResource('c').addMethod('GET', new LambdaIntegration(demoCFunction.function))
+    restApi.root.addResource('cpp').addMethod('GET', new LambdaIntegration(demoCppFunction.function))
     restApi.root.addResource('as').addMethod('GET', new LambdaIntegration(demoAsFunction.function))
   }
 }
