@@ -6,6 +6,9 @@
   },
   "scripts": {
     "test": "jest",
+    "build": "npm run build:c && npm run build:as",
+    "build:c": "cd wasm && $HOME/wasi-sdk-16.0/bin/clang -o demo-c.wasm demo-c.c",
+    "build:as": "cd wasm && asc --exportStart _start -o demo-as.wasm demo-as.ts",
     "deploy:dev": "cdk deploy nordcloud-webassembly-demo-dev",
     "diff:dev": "cdk diff nordcloud-webassembly-demo-dev",
     "destryo:dev": "cdk destroy nordcloud-webassembly-demo-dev"
@@ -14,6 +17,7 @@
     "@types/jest": "^27.5.2",
     "@types/node": "10.17.27",
     "@types/prettier": "2.6.0",
+    "assemblyscript": "^0.20.16",
     "aws-cdk": "2.35.0",
     "esbuild": "^0.14.53",
     "jest": "^27.5.1",

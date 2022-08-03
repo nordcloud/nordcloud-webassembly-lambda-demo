@@ -30,15 +30,26 @@ export class NordcloudWebassemblyLambdaDemoStack extends Stack {
       encryption: TableEncryption.DEFAULT,
     })
 
-    new LogGroup(this, `webassembly-demo-log`, {
-      logGroupName: `/aws/lambda/${this.stackName}-webassembly-demo`,
+    new LogGroup(this, `webassembly-demo-c-log`, {
+      logGroupName: `/aws/lambda/${this.stackName}-webassembly-demo-c`,
       retention: RetentionDays.ONE_YEAR,
       removalPolicy: RemovalPolicy.DESTROY,
     })
 
-    const demoFunction = new WebAssemblyFunction(this, 'webassembly-demo', {
-      functionName: `${props.stackName}-webassembly-demo`,
-      wasmPath: join(__dirname, '..', 'wasm', 'demo.wasm'),
+    const demoCFunction = new WebAssemblyFunction(this, 'webassembly-demo-c', {
+      functionName: `${props.stackName}-webassembly-demo-c`,
+      wasmPath: join(__dirname, '..', 'wasm', 'demo-c.wasm'),
+    })
+
+    new LogGroup(this, `webassembly-demo-as-log`, {
+      logGroupName: `/aws/lambda/${this.stackName}-webassembly-demo-as`,
+      retention: RetentionDays.ONE_YEAR,
+      removalPolicy: RemovalPolicy.DESTROY,
+    })
+
+    const demoAsFunction = new WebAssemblyFunction(this, 'webassembly-demo-as', {
+      functionName: `${props.stackName}-webassembly-demo-as`,
+      wasmPath: join(__dirname, '..', 'wasm', 'demo-as.wasm'),
     })
 
     const restApi = new RestApi(this, 'webassembly-demo-api', {
@@ -48,6 +59,7 @@ export class NordcloudWebassemblyLambdaDemoStack extends Stack {
       },
     })
 
-    restApi.root.addMethod('GET', new LambdaIntegration(demoFunction.function))
+    restApi.root.addResource('c').addMethod('GET', new LambdaIntegration(demoCFunction.function))
+    restApi.root.addResource('as').addMethod('GET', new LambdaIntegration(demoAsFunction.function))
   }
 }

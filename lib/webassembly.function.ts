@@ -1,17 +1,19 @@
 import { readFileSync} from 'fs'
 import { join } from 'path'
+// @ts-ignore
 import { WASI } from 'wasi'
 
 async function runWasm(): Promise<any> {
   const wasmPath = join(__dirname, 'main.wasm')
   const wasmContent = readFileSync(wasmPath)
-  const wasmLength = wasmContent.length
+  // const wasmLength = wasmContent.length
 
   const wasi = new WASI({
     args: [],
     env: {},
     preopens: {
     },
+    returnOnExit: true,
   })
 
   const importObject = { wasi_snapshot_preview1: wasi.wasiImport }
