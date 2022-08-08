@@ -73,19 +73,19 @@ const Home: NextPage = () => {
                 <ul className="list-group">
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> Lambda 1</div>
+                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> AssemblyScript</div>
                       <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2 ps-2">{JSON.stringify(output1)}</pre></div>
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> Lambda 2</div>
+                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> C</div>
                       <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2  ps-2">{JSON.stringify(output2)}</pre></div>
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> Lambda 3</div>
+                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> C++</div>
                       <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2  ps-2">{JSON.stringify(output3)}</pre></div>
                     </div>
                   </li>
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
           </div>
           <div className="mt-5 text-center">
             <h3>How does it work?</h3>
-            <div>We use built-in WebAssembly and WASI support in Node.js to execute WebAssembly applications built using various programming languages.</div>
+            <div>We use built-in WebAssembly and WASI support in Node.js to execute .wasm files built using various programming languages.</div>
             <div>Each WebAssembly application prints JSON to stdout and the output is returned from the Lambda function.</div>
             <div className="mt-1">
               <a href="https://github.com/nordcloud/nordcloud-webassembly-lambda-demo" target="_blank" rel="noreferrer"><span className="fa-brands fa-github"></span></a>
