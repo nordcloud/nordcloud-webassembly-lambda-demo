@@ -49,6 +49,11 @@ const Home: NextPage = () => {
       <Head>
         <title>WebAssembly Lambda Demo by Nordcloud</title>
         <meta name="description" content="Execute WebAssembly in AWS Lambda without a custom runtime." />
+        <meta name="keywords" content="webassembly,aws,lambda,assemblyscript,c,c++" />
+        <meta property="og:title" content="WebAssembly Lambda Demo by Nordcloud" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/lambdabg.png" />
+        <meta property="og:description" content="Execute WebAssembly in AWS Lambda without a custom runtime." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="container">
@@ -73,19 +78,19 @@ const Home: NextPage = () => {
                 <ul className="list-group">
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> AssemblyScript</div>
+                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> <a href="https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-as.ts" target="_blank" rel="noreferrer">AssemblyScript</a></div>
                       <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2 ps-2">{JSON.stringify(output1)}</pre></div>
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> C</div>
+                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> <a href="https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-c.c" target="_blank" rel="noreferrer">C</a></div>
                       <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2  ps-2">{JSON.stringify(output2)}</pre></div>
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> C++</div>
+                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> <a href="https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-cpp.cpp" target="_blank" rel="noreferrer">C++</a></div>
                       <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2  ps-2">{JSON.stringify(output3)}</pre></div>
                     </div>
                   </li>
