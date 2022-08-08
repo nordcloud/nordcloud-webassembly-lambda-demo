@@ -1,21 +1,28 @@
 import { RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib'
 import { Construct } from 'constructs'
 import { AttributeType, BillingMode, Table, TableEncryption } from 'aws-cdk-lib/aws-dynamodb'
-import { LambdaIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway'
+import { LambdaIntegration, RestApi, DomainName, BasePathMapping, EndpointType } from 'aws-cdk-lib/aws-apigateway'
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs'
 import { WebAssemblyFunction } from './webassembly'
 import { join } from 'path'
+import { Certificate, CertificateValidation } from 'aws-cdk-lib/aws-certificatemanager'
+import { HostedZone, CnameRecord } from 'aws-cdk-lib/aws-route53'
 
 interface NordcloudWebassemblyLambdaDemoStackProps extends StackProps {
   stage: string
   stackName: string
   demoTableName: string
+  apiDomain: string
+  baseDomain: string
+  uiDomain: string
+  hostedZoneId: string
 }
 
 export class NordcloudWebassemblyLambdaDemoStack extends Stack {
   constructor(scope: Construct, id: string, props: NordcloudWebassemblyLambdaDemoStackProps) {
     super(scope, id, props)
 
+    // XXX TODO: Access the table from WebAssembly apps
     new Table(this, 'webassembly-demo-table', {
       tableName: props.demoTableName,
       partitionKey: {
@@ -68,10 +75,46 @@ export class NordcloudWebassemblyLambdaDemoStack extends Stack {
       deployOptions: {
         stageName: props.stage,
       },
+      defaultCorsPreflightOptions: {
+        allowOrigins: ['*'],
+        allowCredentials: false,
+        allowHeaders: ['Content-Type', 'X-Amz-Date', 'Authorization', 'X-Api-Key', 'X-Amz-Security-Token', 'X-Amz-User-Agent'],
+        allowMethods: ['OPTIONS', 'GET', 'PUT', 'POST', 'DELETE'],
+      },
     })
 
     restApi.root.addResource('c').addMethod('GET', new LambdaIntegration(demoCFunction.function))
     restApi.root.addResource('cpp').addMethod('GET', new LambdaIntegration(demoCppFunction.function))
     restApi.root.addResource('as').addMethod('GET', new LambdaIntegration(demoAsFunction.function))
+
+    // Certificate and DNS name for API
+    const hostedZone = HostedZone.fromHostedZoneAttributes(this, 'hostedZone', {
+      hostedZoneId: props.hostedZoneId,
+      zoneName: props.baseDomain,
+    })
+
+    const certificate = new Certificate(this, 'api-certificate', {
+      domainName: props.apiDomain,
+      validation: CertificateValidation.fromDns(hostedZone),
+    })
+
+    const domainName = new DomainName(this, 'api-domain', {
+      domainName: props.apiDomain,
+      certificate: certificate,
+      endpointType: EndpointType.REGIONAL,
+    })
+
+    new BasePathMapping(this, 'api-base-path-mapping', {
+      basePath: '',
+      restApi: restApi,
+      domainName: domainName,
+      stage: restApi.deploymentStage,
+    })
+
+    new CnameRecord(this, 'api-cname', {
+      zone: hostedZone,
+      recordName: props.apiDomain,
+      domainName: domainName.domainNameAliasDomainName,
+    })
   }
 }

@@ -23,7 +23,9 @@ async function runWasm(): Promise<Buffer> {
 
   const importObject = { wasi_snapshot_preview1: wasi.wasiImport }
 
+  // @ts-ignore
   const wasm = await WebAssembly.compile(wasmContent)
+  // @ts-ignore
   const instance = await WebAssembly.instantiate(wasm, importObject)
   const exitCode = wasi.start(instance)
   console.log('WebAssembly exit code:', exitCode)
@@ -37,27 +39,21 @@ export async function handler(_event: any) {
   try {
     const output = await runWasm()
     const response = JSON.parse(output.toString('utf8'))
+    if (!response.headers) {
+      response.headers = {}
+    }
+    response.headers['Access-Control-Allow-Origin'] = '*'
     return response
   } catch (err: any) {
     return {
       statusCode: 500,
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({
         errorMessage: err.message,
       }),
     }
   }
-  /*
-  return {
-    statusCode: 200,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      msg: 'hello',
-    }),
-  }
-  */
 }

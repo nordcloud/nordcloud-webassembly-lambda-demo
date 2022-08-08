@@ -10,6 +10,7 @@
     "build:c": "cd wasm && $HOME/wasi-sdk-16.0/bin/clang -o demo-c.wasm demo-c.c",
     "build:cpp": "cd wasm && $HOME/wasi-sdk-16.0/bin/clang++ -o demo-cpp.wasm demo-cpp.cpp",
     "build:as": "cd wasm && asc --exportStart _start -o demo-as.wasm demo-as.ts",
+    "build:ui": "cd ui && npm run build",
     "deploy:dev": "cdk deploy nordcloud-webassembly-demo-dev",
     "diff:dev": "cdk diff nordcloud-webassembly-demo-dev",
     "destryo:dev": "cdk destroy nordcloud-webassembly-demo-dev"

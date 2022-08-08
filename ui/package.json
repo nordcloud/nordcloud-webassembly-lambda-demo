@@ -1,0 +1,26 @@
+{
+  "name": "nordcloud-webassembly-lambda-demo",
+  "version": "0.1.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "next dev",
+    "build": "next build && next export",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.0",
+    "next": "12.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-toastify": "^9.0.8"
+  },
+  "devDependencies": {
+    "@types/node": "18.6.4",
+    "@types/react": "18.0.17",
+    "@types/react-dom": "18.0.6",
+    "eslint": "8.21.0",
+    "eslint-config-next": "12.2.4",
+    "typescript": "4.7.4"
+  }
+}
