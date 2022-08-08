@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import { toast } from 'react-toastify'
 
 async function apiFetch(method: string, url: string) {
@@ -55,10 +54,9 @@ const Home: NextPage = () => {
       <div className="container">
         <div className="mt-5">
           <div className="text-center">
-          <h1>WebAssembly Lambda Demo</h1>
+            <h1 className="mt-3"><img style={{ marginTop: -4 }} width="44" src="/webassembly.png"/> WebAssembly Lambda Demo</h1>
             <div className="mt-3">
-              <p>This demo executes WebAssembly in AWS Lambda without a custom runtime.</p>
-              <p>We use Node.js built-in WebAssembly support to load and execute WebAssembly binaries built using various programming languages.</p>
+              <p>This demo executes <a href="https://webassembly.org" target="_blank" rel="noreferrer">WebAssembly</a> in <a href="https://aws.amazon.com/lambda/" target="_blank" rel="noreferrer">AWS Lambda</a> without a custom runtime.</p>
             </div>
           </div>
           <div className="row">
@@ -66,28 +64,28 @@ const Home: NextPage = () => {
             <div className="col-lg-6">
               <div className="mt-1">
                 <div className="mb-3 text-center">
-                  <button disabled={loading} className="btn btn-outline-secondary" onClick={handleRefresh}>Reload</button>
+                  <button disabled={loading} className="btn btn-outline-secondary" onClick={handleRefresh}><span className={loading ? "fa fa-spinner fa-spin" : "fa fa-sync-alt"}></span> Reload</button>
                 </div>
 
                 {loading ?
-                <div className="alert alert-secondary">Loading...</div>
+                <div className="alert alert-secondary"><span className="fa fa-spinner fa-spin"></span> Loading...</div>
                 :
                 <ul className="list-group">
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold">Lambda 1</div>
+                      <div className="col-lg-3 fw-bold"><img width="22" src="/lambda.png"/> Lambda 1</div>
                       <div className="col-lg-9">{JSON.stringify(output1)}</div>
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold">Lambda 2</div>
+                      <div className="col-lg-3 fw-bold"><img width="22" src="/lambda.png"/> Lambda 2</div>
                       <div className="col-lg-9">{JSON.stringify(output2)}</div>
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold">Lambda 3</div>
+                      <div className="col-lg-3 fw-bold"><img width="22" src="/lambda.png"/> Lambda 3</div>
                       <div className="col-lg-9">{JSON.stringify(output3)}</div>
                     </div>
                   </li>
@@ -96,10 +94,21 @@ const Home: NextPage = () => {
             </div>
             <div className="col-lg-3"></div>
           </div>
+          <div className="mt-5 text-center">
+            <h3>How does it work?</h3>
+            <div>We use built-in WebAssembly and WASI support in Node.js to execute WebAssembly applications built using various programming languages.</div>
+            <div>Each WebAssembly application prints JSON to stdout and the output is returned from the Lambda function.</div>
+            <div className="mt-1">
+              <a href="https://github.com/nordcloud/nordcloud-webassembly-lambda-demo" target="_blank" rel="noreferrer"><span className="fa-brands fa-github"></span></a>
+              {' '}
+              <a href="https://github.com/nordcloud/nordcloud-webassembly-lambda-demo" target="_blank" rel="noreferrer">Source on GitHub</a>
+            </div>
+          </div>
+
         </div>
       </div>
       <footer className="mt-auto text-center pt-3 mb-3 border-top">
-          Demo by <a href="https://twitter.com/kennu" target="_blank" rel="noreferrer">Kenneth Falck</a>, <a href="https://nordcloud.com" target="_blank" rel="noreferrer">Nordcloud</a>, an IBM Company
+          Demo by <a href="https://twitter.com/kennu" target="_blank" rel="noreferrer">Kenneth Falck</a> <a className="ms-1" href="https://nordcloud.com" target="_blank" rel="noreferrer"><img alt="Nordcloud, an IBM Company" width="120" src="/nordcloud-ibm-logo.svg"/></a>
       </footer>
     </>
   )
