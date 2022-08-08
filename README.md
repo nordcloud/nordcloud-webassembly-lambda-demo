@@ -3,13 +3,15 @@ Kenneth Falck <kennu@nordcloud.com> 2022
 
 ## Overview
 
-This demo deploys Lambda functions that execute WebAssembly code using Node.js. The WebAssembly applications are built using a few different tools:
+This demo deploys Lambda functions that execute WebAssembly code using Node.js [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/lib/webassembly.function.ts).
 
-* AssemblyScript - Compile .ts into .wasm
-* C and WASI SDK - Compile .c into .wasm
-* C++ and WASI SDK - Compile .cpp into .wasm
+The WebAssembly applications are built using a few different tools:
 
-The demo also includes a simple UI to show the output of the Lambda functions.
+* AssemblyScript: Compile .ts into .wasm - [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-as.ts)
+* C and WASI SDK: Compile .c into .wasm - [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-c.c)
+* C++ and WASI SDK: Compile .cpp into .wasm [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-cpp.cpp)
+
+The demo also includes a simple UI to show the output of the Lambda functions. [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/tree/master/ui)
 
 ## Prerequisites
 
@@ -19,8 +21,8 @@ To deploy this app, you need:
 
 To build the WebAssembly applications, you need:
 
-* clang
-* wasi-sdk-16.0 installed in $HOME
+* clang (e.g. apt install clang)
+* [wasi-sdk-16.0](https://github.com/WebAssembly/wasi-sdk) installed in $HOME
 
 Pre-built .wasm files are also included in the project in the wasm subdirectory.
 
