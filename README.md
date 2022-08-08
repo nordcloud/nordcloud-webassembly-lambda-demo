@@ -3,7 +3,7 @@ Kenneth Falck <kennu@nordcloud.com> 2022
 
 ## Overview
 
-This demo deploys Lambda functions that execute WebAssembly code using Node.js [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/lib/webassembly.function.ts).
+This demo deploys Lambda functions that execute WebAssembly code using Node.js - [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/lib/webassembly.function.ts).
 
 The WebAssembly applications are built using a few different tools:
 
@@ -11,7 +11,7 @@ The WebAssembly applications are built using a few different tools:
 * C and WASI SDK: Compile .c into .wasm - [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-c.c)
 * C++ and WASI SDK: Compile .cpp into .wasm [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-cpp.cpp)
 
-The demo also includes a simple UI to show the output of the Lambda functions. [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/tree/master/ui)
+The demo also includes a simple UI to show the output of the Lambda functions - [source](https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/tree/master/ui).
 
 ## Prerequisites
 
