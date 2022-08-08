@@ -48,7 +48,7 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>WebAssembly Lambda Demo by Nordcloud</title>
-        <meta name="description" content="Demo of running WebAssembly in AWS Lambda" />
+        <meta name="description" content="Execute WebAssembly in AWS Lambda without a custom runtime." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="container">
