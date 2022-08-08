@@ -46,4 +46,7 @@ To build the web UI, run:
 
 To deploy the project using AWS CDK, run:
 
+    npm run deploy:dev:us
     npm run deploy:dev
+
+Note that the us-east-1 stack must be deployed first so that CloudFront can use the certificate.

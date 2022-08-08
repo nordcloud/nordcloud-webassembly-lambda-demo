@@ -12,8 +12,11 @@
     "build:as": "cd wasm && asc --exportStart _start -o demo-as.wasm demo-as.ts",
     "build:ui": "cd ui && npm run build",
     "deploy:dev": "cdk deploy nordcloud-webassembly-demo-dev",
+    "deploy:dev:us": "cdk deploy nordcloud-webassembly-demo-us-dev",
     "diff:dev": "cdk diff nordcloud-webassembly-demo-dev",
-    "destryo:dev": "cdk destroy nordcloud-webassembly-demo-dev"
+    "diff:dev:us": "cdk diff nordcloud-webassembly-demo-us-dev",
+    "destroy:dev": "cdk destroy nordcloud-webassembly-demo-dev",
+    "destroy:dev:us": "cdk destroy nordcloud-webassembly-demo-us-dev"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",

@@ -7,6 +7,7 @@ import { WebAssemblyFunction } from './webassembly'
 import { join } from 'path'
 import { Certificate, CertificateValidation } from 'aws-cdk-lib/aws-certificatemanager'
 import { HostedZone, CnameRecord } from 'aws-cdk-lib/aws-route53'
+import { Website } from './website'
 
 interface NordcloudWebassemblyLambdaDemoStackProps extends StackProps {
   stage: string
@@ -15,7 +16,10 @@ interface NordcloudWebassemblyLambdaDemoStackProps extends StackProps {
   apiDomain: string
   baseDomain: string
   uiDomain: string
+  uiBucketName: string
   hostedZoneId: string
+  certificateExportName: string
+  certificateArn: string
 }
 
 export class NordcloudWebassemblyLambdaDemoStack extends Stack {
@@ -116,5 +120,7 @@ export class NordcloudWebassemblyLambdaDemoStack extends Stack {
       recordName: props.apiDomain,
       domainName: domainName.domainNameAliasDomainName,
     })
+
+    new Website(this, 'website', props)
   }
 }
