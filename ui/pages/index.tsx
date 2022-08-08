@@ -60,8 +60,8 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="row">
-            <div className="col-lg-3"></div>
-            <div className="col-lg-6">
+            <div className="col-lg-2"></div>
+            <div className="col-lg-8">
               <div className="mt-1">
                 <div className="mb-3 text-center">
                   <button disabled={loading} className="btn btn-outline-secondary" onClick={handleRefresh}><span className={loading ? "fa fa-spinner fa-spin" : "fa fa-sync-alt"}></span> Reload</button>
@@ -73,26 +73,26 @@ const Home: NextPage = () => {
                 <ul className="list-group">
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold"><img width="22" src="/lambda.png"/> Lambda 1</div>
-                      <div className="col-lg-9">{JSON.stringify(output1)}</div>
+                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> Lambda 1</div>
+                      <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2 ps-2">{JSON.stringify(output1)}</pre></div>
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold"><img width="22" src="/lambda.png"/> Lambda 2</div>
-                      <div className="col-lg-9">{JSON.stringify(output2)}</div>
+                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> Lambda 2</div>
+                      <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2  ps-2">{JSON.stringify(output2)}</pre></div>
                     </div>
                   </li>
                   <li className="list-group-item">
                     <div className="row">
-                      <div className="col-lg-3 fw-bold"><img width="22" src="/lambda.png"/> Lambda 3</div>
-                      <div className="col-lg-9">{JSON.stringify(output3)}</div>
+                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> Lambda 3</div>
+                      <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2  ps-2">{JSON.stringify(output3)}</pre></div>
                     </div>
                   </li>
                 </ul>}
               </div>
             </div>
-            <div className="col-lg-3"></div>
+            <div className="col-lg-2"></div>
           </div>
           <div className="mt-5 text-center">
             <h3>How does it work?</h3>
