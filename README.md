@@ -5,9 +5,9 @@ Kenneth Falck <kennu@nordcloud.com> 2022
 
 This demo deploys Lambda functions that execute WebAssembly code using Node.js. The WebAssembly applications are built using a few different tools:
 
-    * AssemblyScript - Compile .ts into .wasm
-    * C and WASI SDK - Compile .c into .wasm
-    * C++ and WASI SDK - Compile .cpp into .wasm
+* AssemblyScript - Compile .ts into .wasm
+* C and WASI SDK - Compile .c into .wasm
+* C++ and WASI SDK - Compile .cpp into .wasm
 
 The demo also includes a simple UI to show the output of the Lambda functions.
 
@@ -15,12 +15,12 @@ The demo also includes a simple UI to show the output of the Lambda functions.
 
 To deploy this app, you need:
 
-    * Node.js 16.x or later
+* Node.js 16.x or later
 
 To build the WebAssembly applications, you need:
 
-    * clang
-    * wasi-sdk-16.0 installed in $HOME
+* clang
+* wasi-sdk-16.0 installed in $HOME
 
 Pre-built .wasm files are also included in the project in the wasm subdirectory.
 
