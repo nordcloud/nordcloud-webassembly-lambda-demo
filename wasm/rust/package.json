@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "echo Build not yet implemented"
+    "build": "docker build -t nc-wasm-rust . && docker run --rm -i -v $PWD:/out nc-wasm-rust"
   },
   "keywords": [],
   "author": "",
