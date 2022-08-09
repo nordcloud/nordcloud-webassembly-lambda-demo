@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "echo Build not yet implemented"
+    "build": "docker run --rm -it -v $PWD:/app -w /app grainlang/grain grain compile demo-grain.gr -o demo-grain.wasm"
   },
   "keywords": [],
   "author": "",
