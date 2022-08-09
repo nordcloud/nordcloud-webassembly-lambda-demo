@@ -1,0 +1,15 @@
+{
+  "name": "as",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "asc --exportStart _start -o demo-as.wasm demo-as.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "assemblyscript": "^0.20.18"
+  }
+}

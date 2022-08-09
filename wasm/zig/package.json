@@ -1,0 +1,12 @@
+{
+  "name": "zig",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo Build not yet implemented"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED"
+}

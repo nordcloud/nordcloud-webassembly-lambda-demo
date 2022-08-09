@@ -1,0 +1,12 @@
+{
+  "name": "c",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "$HOME/wasi-sdk-16.0/bin/clang -o demo-c.wasm demo-c.c"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED"
+}

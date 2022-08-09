@@ -12,10 +12,30 @@ async function apiFetch(method: string, url: string) {
   return response.json()
 }
 
+interface WebAssemblyLanguage {
+  name: string
+}
+
+// Languages that can produce WebAssembly/WASI binaries
+const WEBASSEMBLY_LANGUAGES: { [key: string]: WebAssemblyLanguage } = {
+  as:       { name: 'AssemblyScript', },
+  c:        { name: 'C', },
+  cpp:      { name: 'C++', },
+  python:   { name: 'Python', },
+  dotnet:   { name: 'C#/.NET', },
+  ruby:     { name: 'Ruby', },
+  swift:    { name: 'Swift', },
+  go:       { name: 'Go', },
+  rust:     { name: 'Rust', },
+  grain:    { name: 'Grain', },
+  motoko:   { name: 'Motoko', },
+  haskell:  { name: 'Haskell', },
+  zig:      { name: 'Zig', },
+}
+const LANGUAGES = Object.keys(WEBASSEMBLY_LANGUAGES)
+
 const Home: NextPage = () => {
-  const [output1, setOutput1] = useState<any>(undefined)
-  const [output2, setOutput2] = useState<any>(undefined)
-  const [output3, setOutput3] = useState<any>(undefined)
+  const [lambdaOutputs, setLambdaOutputs] = useState<{[language: string]: any}>({})
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -25,14 +45,16 @@ const Home: NextPage = () => {
   async function refresh() {
     try {
       setLoading(true)
-      const results = await Promise.all([
-        apiFetch('GET', 'https://wasm-api.nordclouddemo.com/as'),
-        apiFetch('GET', 'https://wasm-api.nordclouddemo.com/c'),
-        apiFetch('GET', 'https://wasm-api.nordclouddemo.com/cpp'),
-      ])
-      setOutput1(results[0])
-      setOutput2(results[1])
-      setOutput3(results[2])
+      const results: { [language: string]: any } = {}
+      await Promise.all(LANGUAGES.map(async (language: string) => {
+        try {
+          const result = await apiFetch('GET', `https://wasm-api.nordclouddemo.com/wasm/${language}`)
+          results[language] = result
+        } catch (err: any) {
+          results[language] = { errorMessage: err.message }
+        }
+      }))
+      setLambdaOutputs(results)
     } catch (err: any) {
       toast(err.message)
     }
@@ -76,30 +98,21 @@ const Home: NextPage = () => {
                 <div className="alert alert-secondary"><span className="fa fa-spinner fa-spin"></span> Loading...</div>
                 :
                 <ul className="list-group">
-                  <li className="list-group-item">
-                    <div className="row">
-                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> <a href="https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-as.ts" target="_blank" rel="noreferrer">AssemblyScript</a></div>
-                      <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2 ps-2">{JSON.stringify(output1)}</pre></div>
-                    </div>
-                  </li>
-                  <li className="list-group-item">
-                    <div className="row">
-                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> <a href="https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-c.c" target="_blank" rel="noreferrer">C</a></div>
-                      <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2  ps-2">{JSON.stringify(output2)}</pre></div>
-                    </div>
-                  </li>
-                  <li className="list-group-item">
-                    <div className="row">
-                      <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> <a href="https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/demo-cpp.cpp" target="_blank" rel="noreferrer">C++</a></div>
-                      <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2  ps-2">{JSON.stringify(output3)}</pre></div>
-                    </div>
-                  </li>
+                  {LANGUAGES.map((language: string) => {
+                    return (
+                      <li key={language} className="list-group-item">
+                        <div className="row">
+                          <div className="col-lg-3 fw-bold"><img className="me-2" width="38" src="/lambda.png"/> <a href={`https://github.com/nordcloud/nordcloud-webassembly-lambda-demo/blob/master/wasm/${language}/`} target="_blank" rel="noreferrer">{WEBASSEMBLY_LANGUAGES[language].name}</a></div>
+                          <div className="col-lg-9"><pre className="mb-0 pt-2 pb-2 ps-2">{JSON.stringify(lambdaOutputs[language])}</pre></div>
+                        </div>
+                      </li>
+                    )})}
                 </ul>}
               </div>
             </div>
             <div className="col-lg-2"></div>
           </div>
-          <div className="mt-5 text-center">
+          <div className="mt-5 mb-5 text-center">
             <h3>How does it work?</h3>
             <div>We use built-in WebAssembly and WASI support in Node.js to execute .wasm files built using various programming languages.</div>
             <div>Each WebAssembly application prints JSON to stdout and the output is returned from the Lambda function.</div>

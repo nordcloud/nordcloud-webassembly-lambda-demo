@@ -1,0 +1,12 @@
+{
+  "name": "go",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo Build not yet implemented"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "description": ""
+}

@@ -9,10 +9,29 @@ import { Certificate, CertificateValidation } from 'aws-cdk-lib/aws-certificatem
 import { HostedZone, CnameRecord } from 'aws-cdk-lib/aws-route53'
 import { Website } from './website'
 
+interface WebAssemblyLanguage {
+  name: string
+}
+
+const WEBASSEMBLY_LANGUAGES: { [key: string]: WebAssemblyLanguage } = {
+  as:       { name: 'AssemblyScript' },
+  c:        { name: 'C', },
+  cpp:      { name: 'C++', },
+  python:   { name: 'Python', },
+  dotnet:   { name: 'C#/.NET', },
+  ruby:     { name: 'Ruby', },
+  swift:    { name: 'Swift', },
+  go:       { name: 'Go', },
+  rust:     { name: 'Rust', },
+  grain:    { name: 'Grain', },
+  motoko:   { name: 'Motoko', },
+  haskell:  { name: 'Haskell', },
+  zig:      { name: 'Zig', },
+}
+
 interface NordcloudWebassemblyLambdaDemoStackProps extends StackProps {
   stage: string
   stackName: string
-  demoTableName: string
   apiDomain: string
   baseDomain: string
   uiDomain: string
@@ -26,53 +45,24 @@ export class NordcloudWebassemblyLambdaDemoStack extends Stack {
   constructor(scope: Construct, id: string, props: NordcloudWebassemblyLambdaDemoStackProps) {
     super(scope, id, props)
 
-    // XXX TODO: Access the table from WebAssembly apps
-    new Table(this, 'webassembly-demo-table', {
-      tableName: props.demoTableName,
-      partitionKey: {
-        name: 'pk',
-        type: AttributeType.STRING,
-      },
-      sortKey: {
-        name: 'sk',
-        type: AttributeType.STRING,
-      },
-      billingMode: BillingMode.PAY_PER_REQUEST,
-      encryption: TableEncryption.DEFAULT,
-    })
+    // Create Lambda functions for all source languages
 
-    new LogGroup(this, `webassembly-demo-c-log`, {
-      logGroupName: `/aws/lambda/${this.stackName}-webassembly-demo-c`,
-      retention: RetentionDays.ONE_YEAR,
-      removalPolicy: RemovalPolicy.DESTROY,
-    })
+    const demoFunctions: { [language: string]: WebAssemblyFunction } = {}
 
-    const demoCFunction = new WebAssemblyFunction(this, 'webassembly-demo-c', {
-      functionName: `${props.stackName}-webassembly-demo-c`,
-      wasmPath: join(__dirname, '..', 'wasm', 'demo-c.wasm'),
-    })
+    for (const language of Object.keys(WEBASSEMBLY_LANGUAGES)) {
+      new LogGroup(this, `webassembly-demo-${language}-log`, {
+        logGroupName: `/aws/lambda/${this.stackName}-webassembly-demo-${language}`,
+        retention: RetentionDays.ONE_YEAR,
+        removalPolicy: RemovalPolicy.DESTROY,
+      })
 
-    new LogGroup(this, `webassembly-demo-cpp-log`, {
-      logGroupName: `/aws/lambda/${this.stackName}-webassembly-demo-cpp`,
-      retention: RetentionDays.ONE_YEAR,
-      removalPolicy: RemovalPolicy.DESTROY,
-    })
+      const demoFunction = new WebAssemblyFunction(this, `webassembly-demo-${language}`, {
+        functionName: `${props.stackName}-webassembly-demo-${language}`,
+        wasmPath: join(__dirname, '..', 'wasm', language, `demo-${language}.wasm`),
+      })
 
-    const demoCppFunction = new WebAssemblyFunction(this, 'webassembly-demo-cpp', {
-      functionName: `${props.stackName}-webassembly-demo-cpp`,
-      wasmPath: join(__dirname, '..', 'wasm', 'demo-cpp.wasm'),
-    })
-
-    new LogGroup(this, `webassembly-demo-as-log`, {
-      logGroupName: `/aws/lambda/${this.stackName}-webassembly-demo-as`,
-      retention: RetentionDays.ONE_YEAR,
-      removalPolicy: RemovalPolicy.DESTROY,
-    })
-
-    const demoAsFunction = new WebAssemblyFunction(this, 'webassembly-demo-as', {
-      functionName: `${props.stackName}-webassembly-demo-as`,
-      wasmPath: join(__dirname, '..', 'wasm', 'demo-as.wasm'),
-    })
+      demoFunctions[language] = demoFunction
+    }
 
     const restApi = new RestApi(this, 'webassembly-demo-api', {
       restApiName: `nordcloud-webassembly-demo-api-${props.stage}`,
@@ -87,9 +77,11 @@ export class NordcloudWebassemblyLambdaDemoStack extends Stack {
       },
     })
 
-    restApi.root.addResource('c').addMethod('GET', new LambdaIntegration(demoCFunction.function))
-    restApi.root.addResource('cpp').addMethod('GET', new LambdaIntegration(demoCppFunction.function))
-    restApi.root.addResource('as').addMethod('GET', new LambdaIntegration(demoAsFunction.function))
+    // Add API endpoints for all demo functions as wasm/as, wasm/c etc.
+    const wasmApi = restApi.root.addResource('wasm')
+    for (const language of Object.keys(demoFunctions)) {
+      wasmApi.addResource(language).addMethod('GET', new LambdaIntegration(demoFunctions[language].function))
+    }
 
     // Certificate and DNS name for API
     const hostedZone = HostedZone.fromHostedZoneAttributes(this, 'hostedZone', {

@@ -10,7 +10,6 @@ const app = new cdk.App()
 const config = {
   dev: {
     stage: 'dev',
-    demoTableName: 'nordcloud-webassembly-demo-dev',
     baseDomain: 'nordclouddemo.com',
     apiDomain: 'wasm-api.nordclouddemo.com',
     uiDomain: 'wasm.nordclouddemo.com',

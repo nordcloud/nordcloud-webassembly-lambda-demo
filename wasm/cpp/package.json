@@ -1,0 +1,12 @@
+{
+  "name": "cpp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "$HOME/wasi-sdk-16.0/bin/clang++ -fno-exceptions -o demo-cpp.wasm demo-cpp.cpp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED"
+}

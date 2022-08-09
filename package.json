@@ -4,12 +4,12 @@
   "bin": {
     "nordcloud-webassembly-lambda-demo": "bin/nordcloud-webassembly-lambda-demo.js"
   },
+  "license": "UNLICENSED",
   "scripts": {
     "test": "jest",
-    "build": "npm run build:c && npm run build:cpp && npm run build:as",
-    "build:c": "cd wasm && $HOME/wasi-sdk-16.0/bin/clang -o demo-c.wasm demo-c.c",
-    "build:cpp": "cd wasm && $HOME/wasi-sdk-16.0/bin/clang++ -o demo-cpp.wasm demo-cpp.cpp",
-    "build:as": "cd wasm && asc --exportStart _start -o demo-as.wasm demo-as.ts",
+    "install": "cd wasm; for ff in *; do cd $ff; echo \"Installing $ff\"; npm install || exit 1; cd ..; done",
+    "build": "npm run build:wasm && npm run build:ui",
+    "build:wasm": "cd wasm; for ff in *; do cd $ff; echo \"Building $ff\"; npm run build || exit 1; cd ..; done",
     "build:ui": "cd ui && npm run build",
     "deploy:dev": "cdk deploy nordcloud-webassembly-demo-dev",
     "deploy:dev:us": "cdk deploy nordcloud-webassembly-demo-us-dev",
@@ -22,7 +22,6 @@
     "@types/jest": "^27.5.2",
     "@types/node": "10.17.27",
     "@types/prettier": "2.6.0",
-    "assemblyscript": "^0.20.16",
     "aws-cdk": "2.35.0",
     "esbuild": "^0.14.53",
     "jest": "^27.5.1",
