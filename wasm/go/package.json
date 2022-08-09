@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "echo Build not yet implemented"
+    "build": "docker run --rm -v $PWD:/src -w /src tinygo/tinygo:0.24.0 tinygo build -o demo-go.wasm -target=wasi ."
   },
   "keywords": [],
   "author": "",
