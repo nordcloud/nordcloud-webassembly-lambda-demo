@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "echo Build not yet implemented"
+    "build": "docker build -t nc-wasm-zig . && docker run --rm -i -v $PWD:/usr/src/app nc-wasm-zig zig build-exe demo-zig.zig -target wasm32-wasi"
   },
   "keywords": [],
   "author": "",
