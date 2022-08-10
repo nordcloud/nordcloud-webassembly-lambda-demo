@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "echo Build not yet implemented"
+    "build": "docker build -t nc-wasm-motoko . && docker run --rm -i -v $PWD:/usr/src -w /usr/src nc-wasm-motoko /opt/moc/moc -o demo-motoko.wasm -wasi-system-api demo-motoko.mo"
   },
   "keywords": [],
   "author": "",

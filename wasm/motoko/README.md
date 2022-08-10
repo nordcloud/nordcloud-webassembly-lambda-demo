@@ -1,5 +1,7 @@
 # Motoko to WebAssembly compilation
 
-This target uses xxx to compile Motoko into WebAssembly.
+This target uses Nix/moc to compile Motoko into WebAssembly.
 
-Instructions for Motoko: xxx
+Instructions for Nix/moc: https://github.com/dfinity/motoko/blob/master/Building.md
+
+Note that the base library is not included so we use debugPrint directly.
