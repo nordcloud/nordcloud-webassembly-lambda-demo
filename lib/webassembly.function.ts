@@ -28,13 +28,6 @@ async function runWasm(): Promise<Buffer> {
   // @ts-ignore
   const instance = await WebAssembly.instantiate(wasm, {
     wasi_snapshot_preview1: wasi.wasiImport,
-    /*
-      // @ts-ignore
-      memory: new WebAssembly.Memory({
-        initial: 65536,
-        maximum: 65536, // does not seem to fix swift exit code 71 issue
-      }),
-    */
   })
   const exitCode = wasi.start(instance)
   console.log('WebAssembly exit code:', exitCode)
