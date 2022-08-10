@@ -15,19 +15,28 @@ async function runWasm(): Promise<Buffer> {
 
   const wasi = new WASI({
     args: [],
-    env: {},
+    env: {}, // process.env,
     preopens: {
+      // '/': '/',
     },
     returnOnExit: true,
     stdout: tempFileFd,
   })
 
-  const importObject = { wasi_snapshot_preview1: wasi.wasiImport }
-
   // @ts-ignore
   const wasm = await WebAssembly.compile(wasmContent)
   // @ts-ignore
-  const instance = await WebAssembly.instantiate(wasm, importObject)
+  const instance = await WebAssembly.instantiate(wasm, {
+    wasi_snapshot_preview1: wasi.wasiImport,
+    /*
+    env: {
+      // @ts-ignore
+      memory: new WebAssembly.Memory({
+        initial: 10000
+      }),
+    }
+    */
+  })
   const exitCode = wasi.start(instance)
   console.log('WebAssembly exit code:', exitCode)
   closeSync(tempFileFd)

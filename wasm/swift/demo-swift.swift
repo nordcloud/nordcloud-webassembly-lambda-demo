@@ -1,3 +1,5 @@
+import WASILibc
+
 print("{")
 print("  \"statusCode\": \"200\",")
 print("  \"headers\": {")
