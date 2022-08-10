@@ -25,7 +25,7 @@ const WEBASSEMBLY_LANGUAGES: { [key: string]: WebAssemblyLanguage } = {
   go:       { name: 'Go', },
   grain:    { name: 'Grain', },
   // haskell:  { name: 'Haskell', }, // WASI support does not work yet
-  motoko:   { name: 'Motoko', },
+  // motoko:   { name: 'Motoko', }, // WASI support does not work yet
   python:   { name: 'Python', },
   ruby:     { name: 'Ruby', },
   rust:     { name: 'Rust', },
