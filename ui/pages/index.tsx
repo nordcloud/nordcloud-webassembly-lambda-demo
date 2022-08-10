@@ -50,11 +50,12 @@ const Home: NextPage = () => {
         try {
           const result = await apiFetch('GET', `https://wasm-api.nordclouddemo.com/wasm/${language}`)
           results[language] = result
+          setLambdaOutputs(results)
         } catch (err: any) {
           results[language] = { errorMessage: err.message }
+          setLambdaOutputs(results)
         }
       }))
-      setLambdaOutputs(results)
     } catch (err: any) {
       toast(err.message)
     }

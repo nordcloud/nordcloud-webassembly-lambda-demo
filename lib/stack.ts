@@ -1,4 +1,4 @@
-import { RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib'
+import { Duration, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib'
 import { Construct } from 'constructs'
 import { AttributeType, BillingMode, Table, TableEncryption } from 'aws-cdk-lib/aws-dynamodb'
 import { LambdaIntegration, RestApi, DomainName, BasePathMapping, EndpointType } from 'aws-cdk-lib/aws-apigateway'
@@ -11,6 +11,7 @@ import { Website } from './website'
 
 interface WebAssemblyLanguage {
   name: string
+  props?: any
 }
 
 const WEBASSEMBLY_LANGUAGES: { [key: string]: WebAssemblyLanguage } = {
@@ -18,7 +19,7 @@ const WEBASSEMBLY_LANGUAGES: { [key: string]: WebAssemblyLanguage } = {
   c:        { name: 'C', },
   cpp:      { name: 'C++', },
   python:   { name: 'Python', },
-  dotnet:   { name: 'C#/.NET', },
+  dotnet:   { name: 'C#/.NET', props: { timeout: Duration.seconds(300), memorySize: 10240, } }, // .NET needs more memory/CPU/time
   ruby:     { name: 'Ruby', },
   swift:    { name: 'Swift', },
   go:       { name: 'Go', },
@@ -59,6 +60,7 @@ export class NordcloudWebassemblyLambdaDemoStack extends Stack {
       const demoFunction = new WebAssemblyFunction(this, `webassembly-demo-${language}`, {
         functionName: `${props.stackName}-webassembly-demo-${language}`,
         wasmPath: join(__dirname, '..', 'wasm', language, `demo-${language}.wasm`),
+        ...WEBASSEMBLY_LANGUAGES[language].props,
       })
 
       demoFunctions[language] = demoFunction
