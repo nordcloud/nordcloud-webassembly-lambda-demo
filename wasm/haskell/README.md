@@ -1,5 +1,5 @@
 # Haskell to WebAssembly compilation
 
-This target uses xxx to compile Haskell into WebAssembly.
+This target uses Asterius to compile Haskell into WebAssembly.
 
-Instructions for Haskell: xxx
+Instructions for Asterius: https://asterius.netlify.app/images.html

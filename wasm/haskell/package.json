@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "echo Build not yet implemented"
+    "build": "mkdir -p build && cp *.hs build && docker run --rm -v $PWD/build:/workspace -w /workspace terrorjack/asterius ahc-link --input-hs demo-haskell.hs && cp build/*.wasm ."
   },
   "keywords": [],
   "author": "",
