@@ -1,0 +1,15 @@
+/usr/src/HelloApp/bin/Debug/net7.0/HelloApp
+/usr/src/HelloApp/bin/Debug/net7.0/HelloApp.deps.json
+/usr/src/HelloApp/bin/Debug/net7.0/HelloApp.runtimeconfig.json
+/usr/src/HelloApp/bin/Debug/net7.0/HelloApp.dll
+/usr/src/HelloApp/bin/Debug/net7.0/HelloApp.pdb
+/usr/src/HelloApp/obj/Debug/net7.0/HelloApp.csproj.AssemblyReference.cache
+/usr/src/HelloApp/obj/Debug/net7.0/HelloApp.GeneratedMSBuildEditorConfig.editorconfig
+/usr/src/HelloApp/obj/Debug/net7.0/HelloApp.AssemblyInfoInputs.cache
+/usr/src/HelloApp/obj/Debug/net7.0/HelloApp.AssemblyInfo.cs
+/usr/src/HelloApp/obj/Debug/net7.0/HelloApp.csproj.CoreCompileInputs.cache
+/usr/src/HelloApp/obj/Debug/net7.0/HelloApp.dll
+/usr/src/HelloApp/obj/Debug/net7.0/refint/HelloApp.dll
+/usr/src/HelloApp/obj/Debug/net7.0/HelloApp.pdb
+/usr/src/HelloApp/obj/Debug/net7.0/HelloApp.genruntimeconfig.cache
+/usr/src/HelloApp/obj/Debug/net7.0/ref/HelloApp.dll

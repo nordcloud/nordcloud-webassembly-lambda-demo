@@ -112,6 +112,7 @@ const Home: NextPage = () => {
             </div>
             <div className="col-lg-2"></div>
           </div>
+
           <div className="mt-5 mb-5 text-center">
             <h3>How does it work?</h3>
             <div>We use built-in WebAssembly and WASI support in Node.js to execute .wasm files built using various programming languages.</div>
@@ -121,6 +122,12 @@ const Home: NextPage = () => {
               {' '}
               <a href="https://github.com/nordcloud/nordcloud-webassembly-lambda-demo" target="_blank" rel="noreferrer">Source on GitHub</a>
             </div>
+          </div>
+
+          <div className="mt-5 mb-5 text-center">
+            <h3>Excluded languages</h3>
+            <div>Some languages currently (2022) have no simple way to compile a hello world application into a standalone WASI-compatible .wasm file.</div>
+            <div>These languages include at least Haskell, Motoko, Python, Ruby and Swift.</div>
           </div>
 
         </div>

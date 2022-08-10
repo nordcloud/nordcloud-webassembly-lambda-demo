@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "echo Build not yet implemented"
+    "build": "cp demo-dotnet.cs HelloApp/Program.cs && docker build -t nc-wasm-dotnet . && docker run --rm -i -v $PWD:/usr/src -w /usr/src/HelloApp nc-wasm-dotnet sh -c '/opt/dotnet/dotnet add package Wasi.Sdk --prerelease && /opt/dotnet/dotnet build' && cp HelloApp/bin/Debug/net7.0/HelloApp.wasm demo-dotnet.wasm"
   },
   "keywords": [],
   "author": "",

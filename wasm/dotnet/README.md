@@ -1,10 +1,7 @@
 # # C#/.NET to WebAssembly compilation
 
-This target uses .NET compile C# into WebAssembly.
+This target uses .NET to compile C# into WebAssembly.
 
-Instructions:
+The Dockerfile and build script in package.json perform all the operations to get dependencies and build the .wasm.
 
-* Install .NET 7 Preview 7 or later from https://dotnet.microsoft.com/en-us/download/dotnet/7.0
-* Install dotnet-wasi-sdk from https://github.com/SteveSandersonMS/dotnet-wasi-sdk#building-this-repo-from-source
-
-XXX TODO - Not working yet
+Based on https://github.com/SteveSandersonMS/dotnet-wasi-sdk
