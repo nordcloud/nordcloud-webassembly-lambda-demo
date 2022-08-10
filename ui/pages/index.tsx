@@ -26,10 +26,10 @@ const WEBASSEMBLY_LANGUAGES: { [key: string]: WebAssemblyLanguage } = {
   grain:    { name: 'Grain', },
   // haskell:  { name: 'Haskell', }, // WASI support does not work yet
   // motoko:   { name: 'Motoko', }, // WASI support does not work yet
-  python:   { name: 'Python', },
-  ruby:     { name: 'Ruby', },
+  // python:   { name: 'Python', },
+  // ruby:     { name: 'Ruby', },
   rust:     { name: 'Rust', },
-  swift:    { name: 'Swift', },
+  // swift:    { name: 'Swift', },
   zig:      { name: 'Zig', },
 }
 const LANGUAGES = Object.keys(WEBASSEMBLY_LANGUAGES)
