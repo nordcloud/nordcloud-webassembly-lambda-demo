@@ -1,5 +1,7 @@
 # Swift to WebAssembly compilation
 
-This target uses xxx to compile Swift into WebAssembly.
+This target uses SwiftWasm to compile Swift into WebAssembly.
 
-Instructions for Swift: xxx
+Instructions for SwiftWasm: https://book.swiftwasm.org/getting-started/setup.html
+
+We use the Docker image to directly compile .swift into .wasm.

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "echo Build not yet implemented"
+    "build": "docker run --rm -it -v $PWD:/app -w /app ghcr.io/swiftwasm/swift:5.6 swiftc -target wasm32-unknown-wasi demo-swift.swift -o demo-swift.wasm"
   },
   "keywords": [],
   "author": "",
