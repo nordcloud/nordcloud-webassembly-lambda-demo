@@ -29,7 +29,7 @@ const WEBASSEMBLY_LANGUAGES: { [key: string]: WebAssemblyLanguage } = {
   // python:   { name: 'Python', },
   // ruby:     { name: 'Ruby', },
   rust:     { name: 'Rust', },
-  // swift:    { name: 'Swift', },
+  swift:    { name: 'Swift', },
   zig:      { name: 'Zig', },
 }
 const LANGUAGES = Object.keys(WEBASSEMBLY_LANGUAGES)
@@ -95,7 +95,7 @@ const Home: NextPage = () => {
                   <button disabled={loading} className="btn btn-outline-secondary" onClick={handleRefresh}><span className={loading ? "fa fa-spinner fa-spin" : "fa fa-sync-alt"}></span> Reload</button>
                 </div>
 
-                {loading ?
+                {!Object.keys(lambdaOutputs).length ?
                 <div className="alert alert-secondary"><span className="fa fa-spinner fa-spin"></span> Loading...</div>
                 :
                 <ul className="list-group">

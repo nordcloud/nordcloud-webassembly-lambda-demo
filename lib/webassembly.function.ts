@@ -14,7 +14,7 @@ async function runWasm(): Promise<Buffer> {
   const tempFileFd = openSync(tempFileName, 'w+', 0o666)
 
   const wasi = new WASI({
-    args: [],
+    args: [wasmPath],
     env: {}, // process.env,
     preopens: {
       // '/': '/',
